@@ -1,30 +1,16 @@
 import "./App.css";
-import axios from "axios";
-import Websites from "./components/websites";
-import { useEffect, useState } from "react";
-
-const API_URL = "http://localhost:3000/api/v1/websites";
-
-function getApiData() {
-  return axios
-    .get(API_URL)
-    .then((response) => {
-      return response.data;
-    })
-    .catch((error) => console.error(error));
-}
+import { Routes, Route, Router } from "react-router-dom";
+import Layout from "./components/layout";
+import Home from "./components/home";
+import Website from "./components/website";
 
 function App() {
-  const [websites, setWebsites] = useState([]);
-
-  useEffect(() => {
-    getApiData().then((data) => setWebsites(data));
-  }, []);
-
   return (
     <div className="App">
-      <h1>Website Editor</h1>
-      <Websites websites={websites} />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/website/:id" element={<Website />} />
+      </Routes>
     </div>
   );
 }
